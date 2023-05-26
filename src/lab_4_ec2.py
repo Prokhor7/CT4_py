@@ -17,6 +17,8 @@ def create_instance(ec2_client):
     ami_id = "ami-0989fb15ce71ba39e"
     instance_type = "t3.micro"
     key_name = CONFIG.key_pairs.name
+    sec_group_id = CONFIG.boto.sec_group_id
+    sec_group_name = CONFIG.boto.sec_group_name
 
     # Try creation
     try:
@@ -25,6 +27,8 @@ def create_instance(ec2_client):
             MinCount=1,
             MaxCount=1,
             InstanceType=instance_type,
+            SecurityGroupIds=[sec_group_id],
+            SecurityGroups=[sec_group_name],
             KeyName=key_name
         )
         print("Instance create successfully!!")
